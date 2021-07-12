@@ -1,3 +1,4 @@
+##Used the covid19 data from ourworldindata.org to conduct some analysis.
 ##Claculating the liklihood of dying if got infected by COVID-19
 
 SELECT location, date_of, total_cases, total_deaths, (total_deaths/total_cases) *100 AS percentage
