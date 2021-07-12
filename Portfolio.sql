@@ -48,7 +48,7 @@ ORDER BY 1,2,3;
 
 ## Here I want to see the percentage of vaccinated people over the population of a country, and I did it by 2 methods;
 
-## Subquery
+## 1st Method by Subquery
 SELECT ta. *, (ta.number_of_vaccinated/ta.population) *100 AS percentage_population_vaccinated
 FROM (SELECT cd.continent, cd.location , cd.date_of, cd.population AS population, cv.new_vaccinations, SUM(CAST(cv.new_vaccinations AS SIGNED INT)) OVER (PARTITION BY cd.location ORDER BY cd.location, cd.date_of) AS number_of_vaccinated
 FROM covid_deaths cd
@@ -56,7 +56,7 @@ JOIN covid_vacc cv
 ON cd.location = cv.location AND cd.date_of = cv.date_of
 ORDER BY 1,2,3) AS ta;
 
-## CTE 
+## 2nd Method by CTE 
 WITH VacvsPop(continet, location, date_of, population, new_vaccinations, number_of_vaccinated)
 AS(
 SELECT cd.continent, cd.location, cd.date_of, cd.population, cv.new_vaccinations, SUM(CAST(cv.new_vaccinations AS SIGNED INT)) OVER (PARTITION BY cd.location ORDER BY cd.location, cd.date_of) AS number_of_vaccinated
