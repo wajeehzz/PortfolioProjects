@@ -6,6 +6,14 @@ FROM covid_deaths
 ##WHERE location = 'Iraq'
 ORDER BY 1,2;
 
+## Checking the total tests over population
+SELECT cd.location, cd.date_of, cd.population, cv.total_tests, (cv.total_tests/cd.population)*100 AS percentage
+FROM covid_deaths cd
+JOIN covid_vacc cv
+ON cd.location = cv.location AND cd.date_of = cv.date_of
+ORDER BY 1,2, percentage
+LIMIT 2000;
+
 ## Looking at the total cases VS population in Iraq
 SELECT location, date_of,population, total_cases, (total_cases/population) * 100 AS percentage
 FROM covid_deaths
