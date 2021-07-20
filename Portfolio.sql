@@ -3,7 +3,6 @@
 
 SELECT location, date_of, total_cases, total_deaths, (total_deaths/total_cases) *100 AS percentage
 FROM covid_deaths
-##WHERE location = 'Iraq'
 ORDER BY 1,2;
 
 ## Checking the total tests over population
@@ -23,21 +22,18 @@ ORDER BY 1,2;
 ## Countries with highest infection rate compared to population 
 SELECT location, population, MAX(total_cases) AS HighestInfection, MAX((total_cases/population)) * 100 AS percentage
 FROM covid_deaths
-##WHERE location = 'Iraq'
 GROUP BY location, population
 ORDER BY percentage DESC;
 
 ## Showing the countries with highest deaths per population
 SELECT location, MAX(CAST(total_deaths AS SIGNED int)) AS total_death_count
 FROM covid_deaths
-##WHERE location = 'Iraq' 
 GROUP BY location
 ORDER BY  total_death_count DESC;
 
 ## Breaking things down by continent
 SELECT continent, MAX(CAST(total_deaths AS SIGNED int)) AS total_death_count
 FROM covid_deaths
-##WHERE location = 'Iraq' 
 GROUP BY continent
 ORDER BY  total_death_count DESC;
 
